@@ -19,7 +19,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 // Image
-import Logo from "../../assets/bravit_white.png";
+import Logo from "../../assets/logo/bravit_white.png";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";

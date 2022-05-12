@@ -20,7 +20,7 @@ import { useStateContext } from "../../context/StateContext";
 import Cart from "../Cart/Cart";
 
 // Imgaes
-import Logo from "../../assets/bravit_white.png";
+import Logo from "../../assets/logo/bravit_white.png";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import DesignServicesRoundedIcon from "@mui/icons-material/DesignServicesRounded";
