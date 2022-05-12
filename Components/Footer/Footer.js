@@ -10,6 +10,8 @@ import {
   ListItemText,
   ListItem,
   Button,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import React from "react";
 import Image from "next/image";
@@ -22,6 +24,9 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 const Footer = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isLaptop = useMediaQuery(theme.breakpoints.between("md", "lg"));
   const router = useRouter();
 
   const handleChange = (e, value) => {
@@ -49,7 +54,7 @@ const Footer = () => {
             </Link>
             <Typography
               variant="h5"
-              sx={{ fontSize: "20px", paddingTop: "20px" }}
+              sx={{ fontSize: isLaptop ? "16px" : "20px", paddingTop: "20px" }}
             >
               Bravit Pharmaceuticals Private Limited is a Vadodara, Gujarat
               (India) based company dealing with pharmaceuticals, nutraceutical,
@@ -64,13 +69,30 @@ const Footer = () => {
             </HeroButton>
           </Grid>
           <Grid item xs={12} sm={12} md={4} lg={4}>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: isMobile ? "left" : "center",
+              }}
+            >
               <Typography variant="h5" sx={{ fontSize: "20px" }}>
                 Quick Link
               </Typography>
             </Box>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <FTabs orientation="vertical" onChange={handleChange}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: isMobile ? "left" : "center",
+              }}
+            >
+              <FTabs
+                orientation="vertical"
+                onChange={handleChange}
+                sx={{
+                  marginLeft: isMobile ? "none" : "auto",
+                  marginRight: isMobile ? "none" : "auto",
+                }}
+              >
                 <FTab
                   icon={<ArrowRightAltIcon />}
                   iconPosition="start"
@@ -105,12 +127,22 @@ const Footer = () => {
             </Box>
           </Grid>
           <Grid item xs={12} sm={12} md={4} lg={4}>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: isMobile ? "left" : "center",
+              }}
+            >
               <Typography variant="h5" sx={{ fontSize: "20px" }}>
                 Contact Details
               </Typography>
             </Box>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: isMobile ? "left" : "center",
+              }}
+            >
               <List>
                 <Link passHref href="mailto:bravitpharmaceuticals@gmail.com">
                   <a
@@ -174,8 +206,6 @@ const Footer = () => {
 export default Footer;
 
 const FTabs = styled(Tabs)({
-  marginLeft: "auto",
-  marginRight: "auto",
   "& .MuiTabs-indicator": {
     backgroundColor: "#000033",
   },
@@ -231,7 +261,7 @@ const HeroButton = styled(Button)({
   lineHeight: 1.5,
   color: "#ffffff",
   backgroundColor: "#311a10",
-  borderColor: "#008080",
+  borderColor: "#ffffff",
   fontFamily: [
     "-apple-system",
     "BlinkMacSystemFont",

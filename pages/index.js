@@ -9,10 +9,14 @@ import FooterLine from "../Components/Footer/FooterLine";
 import OurMissionSlider from "../Components/ImageSlider/OurMissionSlider";
 import HeroSlider from "../Components/ImageSlider/HeroSlider";
 import HomeHero from "../Components/Hero/HomeHero";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 //Hero Slider Images
 
 export default function Home() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isLaptop = useMediaQuery(theme.breakpoints.between("md", "xl"));
   const activeTab = "/";
   const selectedValue = 0;
   return (
@@ -23,11 +27,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar activeTab={activeTab} selectedValue={selectedValue} />
-      <HomeHero />
-      <Hero />
-      <OurVision />
-      <OurMissionSlider />
-      <Content />
+      <HomeHero isMobile={isMobile} isLaptop={isLaptop} />
+      <Hero isMobile={isMobile} isLaptop={isLaptop} />
+      <OurVision isMobile={isMobile} isLaptop={isLaptop} />
+      <OurMissionSlider isMobile={isMobile} isLaptop={isLaptop} />
+      <Content isMobile={isMobile} isLaptop={isLaptop} />
       <Footer />
       <FooterLine />
     </>

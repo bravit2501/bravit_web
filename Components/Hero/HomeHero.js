@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import HeroImage from "../../assets/Bravit_Hero.png";
 
-const Hero = () => {
+const Hero = ({ isMobile, isLaptop }) => {
   const router = useRouter();
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -31,18 +31,30 @@ const Hero = () => {
             marginRight: "auto",
           }}
         >
-          {isMatch ? (
+          {isMobile ? (
             <>
               <Typography
                 variant="h5"
-                sx={{ fontWeight: "bold", color: "#310a10" }}
+                sx={{
+                  fontWeight: "bold",
+                  color: "#310a10",
+                  fontSize: "16px",
+                  fontFamily: "Montserrat, sans-serif",
+                }}
               >
                 Bravit Pharmaceuticals Private Limited is a Vadodara, Gujarat
                 (India) based company dealing with pharmaceuticals,
                 nutraceutical, health and hygiene, food and supplements,
                 trading, import and export.
               </Typography>
-              <Typography variant="h5" sx={{ paddingTop: "25px" }}>
+              <Typography
+                variant="h5"
+                sx={{
+                  paddingTop: "25px",
+                  fontSize: "16px",
+                  fontFamily: "Montserrat, sans-serif",
+                }}
+              >
                 We assure longer and closer working relationships with our
                 clients and supplier not only provide immediate and reliable
                 services but also to continually exceed expectations and goals.
@@ -52,14 +64,26 @@ const Hero = () => {
             <>
               <Typography
                 variant="h3"
-                sx={{ fontWeight: "bold", color: "#310a10" }}
+                sx={{
+                  fontWeight: "bold",
+                  color: "#310a10",
+                  fontSize: isLaptop ? "18px" : "32px",
+                  fontFamily: "Montserrat, sans-serif",
+                }}
               >
                 Bravit Pharmaceuticals Private Limited is a Vadodara, Gujarat
                 (India) based company dealing with pharmaceuticals,
                 nutraceutical, health and hygiene, food and supplements,
                 trading, import and export.
               </Typography>
-              <Typography variant="h5" sx={{ paddingTop: "25px" }}>
+              <Typography
+                variant="h5"
+                sx={{
+                  paddingTop: "25px",
+                  fontSize: isLaptop ? "18px" : "32px",
+                  fontFamily: "Montserrat, sans-serif",
+                }}
+              >
                 We assure longer and closer working relationships with our
                 clients and supplier not only provide immediate and reliable
                 services but also to continually exceed expectations and goals.

@@ -20,7 +20,7 @@ function Carousel({
   slideImageFit,
   thumbnails,
   thumbnailWidth,
-  showNavBtn = true,
+  showNavBtn,
 }) {
   //Initialize States
   const [slide, setSlide] = useState(0);

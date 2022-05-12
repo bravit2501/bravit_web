@@ -1,9 +1,7 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import React from "react";
 
-const Content = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+const Content = ({ isMobile, isLaptop }) => {
   const ContentArr = [
     {
       title: "OUR CONCERN FOR QUALITY",
@@ -31,7 +29,7 @@ const Content = () => {
               textAlign: "center",
               marginLeft: "auto",
               marginRight: "auto",
-              padding: "70px 0px",
+              padding: isMobile ? "10px 0px" : "70px 0px",
             }}
             key={index}
           >
@@ -57,6 +55,7 @@ const Content = () => {
               sx={{
                 paddingBottom: "20px",
                 fontFamily: "Montserrat, sans-serif",
+                fontSize: isMobile ? "16px" : "30px",
               }}
             >
               {item.description}

@@ -1,17 +1,11 @@
-import {
-  Box,
-  Card,
-  Grid,
-  Typography,
-  useTheme,
-  useMediaQuery,
-  styled,
-} from "@mui/material";
+import { Box, Card, Grid, Typography, styled } from "@mui/material";
 import React from "react";
 
-const OurVision = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+const OurVision = ({ isMobile, isLaptop }) => {
+  console.log(
+    "🚀 ~ file: OurVision.js ~ line 5 ~ OurVision ~ isLaptop",
+    isLaptop,
+  );
   const ourVisionText = [
     {
       quote:
@@ -42,14 +36,14 @@ const OurVision = () => {
           textAlign: "center",
           marginLeft: "auto",
           marginRight: "auto",
-          padding: "40px 0px",
+          padding: isMobile ? "10px 0px" : "40px 0px",
         }}
       >
         <Typography
           variant="h2"
           sx={{
             fontWeight: "bolder",
-            padding: "40px 0px",
+            padding: isMobile ? "10px 0px" : "40px 0px",
             fontFamily: "Montserrat, sans-serif",
             fontSize: isMobile ? "30px" : "60px",
             color: "#310a10",
@@ -60,11 +54,11 @@ const OurVision = () => {
       </Box>
       <Grid container rowSpacing={3} columnSpacing={{ sm: 2, md: 3 }}>
         {ourVisionText.map((item, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={4}>
+          <Grid item xs={12} sm={12} md={4} lg={4} key={index}>
             <OurVisionCard
               sx={{
-                minHeight: "355px",
-                padding: "20px",
+                minHeight: isMobile ? "250px" : "350px",
+                padding: isMobile ? "10px" : "20px",
                 backgroundColor: "#e6e6e6",
                 display: "flex",
                 justifyContent: "center",
@@ -74,11 +68,12 @@ const OurVision = () => {
               <Typography
                 variant={isMobile ? "h6" : "h4"}
                 sx={{
-                  paddingBottom: "20px",
+                  paddingBottom: isMobile ? "0px" : "20px",
                   fontFamily: "Montserrat, sans-serif",
                   textAlign: "center",
                   fontWeight: "bold",
                   margin: "auto 0px",
+                  fontSize: isLaptop ? "20px" : "26px",
                 }}
               >
                 {item.quote}

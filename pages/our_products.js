@@ -4,8 +4,14 @@ import Navbar from "../Components/Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
 import FooterLine from "../Components/Footer/FooterLine";
 import HeroSlider from "../Components/ImageSlider/HeroSlider";
+import Products from "../Components/OurProducts/Products";
+import { client } from "../lib/client";
+import { useTheme, useMediaQuery } from "@mui/material";
 
-const our_products = () => {
+const our_products = ({ products, bannerData }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isLaptop = useMediaQuery(theme.breakpoints.between("md", "xl"));
   const activeTab = "/our_products";
   const selectedValue = 0;
   return (
@@ -17,10 +23,23 @@ const our_products = () => {
       </Head>
       <Navbar activeTab={activeTab} selectedValue={selectedValue} />
       <HeroSlider />
+      <Products products={products} isMobile={isMobile} isLaptop={isLaptop} />
       <Footer />
       <FooterLine />
     </>
   );
+};
+
+export const getServerSideProps = async () => {
+  const query = '*[_type == "product"]';
+  const products = await client.fetch(query);
+
+  const bannerQuery = '*[_type == "banner"]';
+  const bannerData = await client.fetch(bannerQuery);
+
+  return {
+    props: { products, bannerData },
+  };
 };
 
 export default our_products;

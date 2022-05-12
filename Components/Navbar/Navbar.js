@@ -6,12 +6,18 @@ import {
   Tab,
   useMediaQuery,
   useTheme,
+  Badge,
+  IconButton,
 } from "@mui/material";
 import Image from "next/image";
 import { styled } from "@mui/material/styles";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import MobileDrawer from "./MobileDrawer";
+import { connect } from "react-redux";
+import { userLogoutSuccess } from "../../redux/userSlice";
+import { useStateContext } from "../../context/StateContext";
+import Cart from "../Cart/Cart";
 
 // Imgaes
 import Logo from "../../assets/Bravit_White.png";
@@ -20,12 +26,14 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import DesignServicesRoundedIcon from "@mui/icons-material/DesignServicesRounded";
 import BookRoundedIcon from "@mui/icons-material/BookRounded";
 import ConnectWithoutContactRoundedIcon from "@mui/icons-material/ConnectWithoutContactRounded";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-const Navbar = ({ activeTab, selectedTab }) => {
+const Navbar = (props, { activeTab, selectedTab }) => {
   const router = useRouter();
   const [value, setValue] = useState();
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const { showCart, setShowCart, totalQuantities } = useStateContext();
 
   const handleChange = (e, value) => {
     e.preventDefault();
@@ -79,13 +87,31 @@ const Navbar = ({ activeTab, selectedTab }) => {
               />
             </MTabs>
           )}
+          <IconButton
+            aria-label="cart"
+            sx={{ color: "#310a10" }}
+            onClick={() => setShowCart(true)}
+          >
+            <StyledBadge badgeContent={totalQuantities}>
+              <ShoppingCartIcon color="#310a10" />
+            </StyledBadge>
+          </IconButton>
+          <Cart />
         </Toolbar>
       </AppBar>
     </React.Fragment>
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  userData: state.user.userData,
+  isLoggedIn: state.user.isLoggedIn,
+});
+
+const mapDispatchToProps = {
+  userLogoutSuccess,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
 
 const MTabs = styled(Tabs)({
   marginLeft: "auto",
@@ -130,3 +156,14 @@ const MTab = styled((props) => <Tab disableRipple {...props} />)(
     },
   }),
 );
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    color: "#310a10",
+    backgroundColor: "#e6e6e6",
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: "0 4px",
+  },
+}));

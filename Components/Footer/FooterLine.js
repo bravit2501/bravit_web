@@ -23,7 +23,7 @@ const FooterLine = () => {
     <Box
       sx={{
         backgroundColor: "#fff",
-        padding: "50px 20px 20px 20px",
+        padding: isMobile ? "10px" : "50px 20px 20px 20px",
         width: "full",
       }}
     >
