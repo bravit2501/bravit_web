@@ -146,6 +146,7 @@ const Footer = () => {
               <List>
                 <Link passHref href="mailto:bravitpharmaceuticals@gmail.com">
                   <a
+                    href="mailto:bravitpharmaceuticals@gmail.com"
                     style={{
                       cursor: "pointer",
                       textDecoration: "none",
@@ -162,8 +163,9 @@ const Footer = () => {
                     </ListItem>
                   </a>
                 </Link>
-                <Link passHref href="callto:+91-7226021413">
+                <Link passHref href="tel:+917226021413">
                   <a
+                    href="tel:+917226021413"
                     style={{
                       cursor: "pointer",
                       textDecoration: "none",
@@ -178,8 +180,9 @@ const Footer = () => {
                     </ListItem>
                   </a>
                 </Link>
-                <Link passHref href="callto:+91-9824982141">
+                <Link passHref href="tel:+919824982141">
                   <a
+                    href="tel:+919824982141"
                     style={{
                       cursor: "pointer",
                       textDecoration: "none",
