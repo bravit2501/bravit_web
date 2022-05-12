@@ -3,7 +3,7 @@ import Footer from "../../Components/Footer/Footer";
 import FooterLine from "../../Components/Footer/FooterLine";
 import Navbar from "../../Components/Navbar/Navbar";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
-const cancellation_policy = () => {
+const Cancellation_Policy = () => {
   const PolicyTitle = "Cancellation Policy";
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -58,4 +58,4 @@ const cancellation_policy = () => {
   );
 };
 
-export default cancellation_policy;
+export default Cancellation_Policy;

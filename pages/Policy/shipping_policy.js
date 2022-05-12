@@ -5,7 +5,7 @@ import FooterLine from "../../Components/Footer/FooterLine";
 import Navbar from "../../Components/Navbar/Navbar";
 import ShippingRateTable from "../../Components/Policies/ShippingRateTable";
 
-const shipping_policy = () => {
+const Shipping_Policy = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const PolicyTitle = "Shipping Policy";
@@ -113,4 +113,4 @@ const shipping_policy = () => {
   );
 };
 
-export default shipping_policy;
+export default Shipping_Policy;

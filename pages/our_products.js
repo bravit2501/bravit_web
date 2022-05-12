@@ -8,7 +8,7 @@ import Products from "../Components/OurProducts/Products";
 import { client } from "../lib/client";
 import { useTheme, useMediaQuery } from "@mui/material";
 
-const our_products = ({ products, bannerData }) => {
+const Our_Products = ({ products, bannerData }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isLaptop = useMediaQuery(theme.breakpoints.between("md", "xl"));
@@ -42,4 +42,4 @@ export const getServerSideProps = async () => {
   };
 };
 
-export default our_products;
+export default Our_Products;

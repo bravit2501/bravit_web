@@ -4,7 +4,7 @@ import Footer from "../../Components/Footer/Footer";
 import FooterLine from "../../Components/Footer/FooterLine";
 import Navbar from "../../Components/Navbar/Navbar";
 
-const terms_conditions = () => {
+const Terms_Conditions = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const PolicyTitle = "Terms & Conditions";
@@ -41,8 +41,8 @@ const terms_conditions = () => {
             sx={{ paddingBottom: "20px", fontFamily: "Montserrat, sans-serif" }}
           >
             As you sign-up for a Bravit Pharmaceuticals Private Limited Account
-            or by using any Bravit's Services, you are agreeing to be bound by
-            the following terms and conditions:
+            or by using any Bravit&apos;s Services, you are agreeing to be bound
+            by the following terms and conditions:
           </Typography>
           <Typography
             variant={isMobile ? "h6" : "h5"}
@@ -116,4 +116,4 @@ const terms_conditions = () => {
   );
 };
 
-export default terms_conditions;
+export default Terms_Conditions;

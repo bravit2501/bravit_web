@@ -4,7 +4,7 @@ import FooterLine from "../../Components/Footer/FooterLine";
 import Navbar from "../../Components/Navbar/Navbar";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 
-const privacy_policy = () => {
+const Privacy_Policy = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const PolicyTitle = "Privacy Policy";
@@ -77,7 +77,7 @@ const privacy_policy = () => {
             choosing not to use a particular service, product or feature on the
             website. We may track your buying behavior, preferences, and other
             information that you choose to provide on our website. We use this
-            information to do internal research on our users' demographics,
+            information to do internal research on our users&apos; demographics,
             interests, and behavior to better understand, protect and serve our
             users. This information is compiled and analyzed on an aggregated
             basis. This information may include the URL that you just came from
@@ -134,27 +134,28 @@ const privacy_policy = () => {
             variant={isMobile ? "h6" : "h5"}
             sx={{ paddingBottom: "20px", fontFamily: "Montserrat, sans-serif" }}
           >
-            We use data collection devices such as "cookies" on certain pages of
-            the website to help analyze our web page flow, measure promotional
-            effectiveness, and promote trust and safety. "Cookies" are small
-            files placed on your hard drive that assist us in providing our
-            services. Cookies do not contain any of your personal information.
-            We offer certain features that are only available through the use of
-            a "cookie". We also use cookies to allow you to enter your password
-            less frequently during a session. Cookies can also help us provide
-            information that is targeted to your interests. Most cookies are
-            "session cookies," meaning that they are automatically deleted from
-            your hard drive at the end of a session. You are always free to
+            We use data collection devices such as &quot;cookies&quot; on
+            certain pages of the website to help analyze our web page flow,
+            measure promotional effectiveness, and promote trust and safety.
+            &quot;Cookies&quot; are small files placed on your hard drive that
+            assist us in providing our services. Cookies do not contain any of
+            your personal information. We offer certain features that are only
+            available through the use of a &quot;cookie&quot;. We also use
+            cookies to allow you to enter your password less frequently during a
+            session. Cookies can also help us provide information that is
+            targeted to your interests. Most cookies are &quot;session
+            cookies&quot;, meaning that they are automatically deleted from your
+            hard drive at the end of a session. You are always free to
             decline/delete our cookies if your browser permits, although in that
             case you may not be able to use certain features on the website and
             you may be required to re-enter your password more frequently during
-            a session. Additionally, you may encounter "cookies" or other
-            similar devices on certain pages of the website that are placed by
-            third parties. We do not control the use of cookies by third
-            parties. We use cookies from third-party partners such as google
-            analytics for marketing and analytical purposes. Google analytics
-            help us understand how our customers use the site. You can read more
-            about how google uses your personal information.
+            a session. Additionally, you may encounter &quot;cookies&quot; or
+            other similar devices on certain pages of the website that are
+            placed by third parties. We do not control the use of cookies by
+            third parties. We use cookies from third-party partners such as
+            google analytics for marketing and analytical purposes. Google
+            analytics help us understand how our customers use the site. You can
+            read more about how google uses your personal information.
           </Typography>
           <Typography
             variant={isMobile ? "h6" : "h5"}
@@ -505,4 +506,4 @@ const privacy_policy = () => {
   );
 };
 
-export default privacy_policy;
+export default Privacy_Policy;

@@ -26,7 +26,7 @@ const Success = () => {
     setTotalQuantities(0);
     setShowCart(false);
     runFireworks();
-  }, []);
+  });
 
   return (
     <Box
@@ -77,7 +77,7 @@ const Success = () => {
           orders@bravit.com
         </a>
       </Typography>
-      <Link href="/">
+      <Link href="/" passHref>
         <BuyButton sx={{ fontFamily: "Montserrat, sans-serif" }}>
           Continue Shopping
         </BuyButton>
