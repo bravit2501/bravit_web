@@ -61,23 +61,19 @@ const Cart = () => {
       description: "Thankyou for Purchasing",
       image: Bravit_round_logo,
       handler: function (response) {
-        console.log(
-          "🚀 ~ file: Cart.js ~ line 59 ~ makePayment ~ response",
-          response,
-        );
         // Validate payment at server - using webhooks is a better idea.
         // alert(response.razorpay_payment_id);
         // alert(response.razorpay_order_id);
         // alert(response.razorpay_signature);
         router.push("/success");
       },
-      prefill: {
-        name: "Manu Arora",
-        email: "manuarorawork@gmail.com",
-        contact: "9999999999",
-      },
+      // prefill: {
+      //   name: "Manu Arora",
+      //   email: "manuarorawork@gmail.com",
+      //   contact: "9999999999",
+      // },
       notes: {
-        address: "vadodata",
+        address: "vadodara",
         name: "Abc",
         email: "abc@gmail.com",
         phone: "8154036407",
