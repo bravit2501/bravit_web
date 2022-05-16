@@ -1,17 +1,17 @@
 import React from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import Head from "next/head";
-import ImageHero from "../Components/Hero/ImageHero";
-import OurMissionSlider from "../Components/ImageSlider/OurMissionSlider";
 import Footer from "../Components/Footer/Footer";
 import FooterLine from "../Components/Footer/FooterLine";
+import { useTheme, useMediaQuery } from "@mui/material";
+import AboutUs from "../Components/AboutUs/AboutUs";
 
-import HeaderImage from "../assets/Hero_Slider/Slider_1.png";
 const about = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isLaptop = useMediaQuery(theme.breakpoints.between("md", "xl"));
   const activeTab = "/about";
   const selectedValue = 0;
-  const HeroAlt = "Hero Image";
-  const ImageHeading = "Test Hero";
   return (
     <>
       <Head>
@@ -20,12 +20,15 @@ const about = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar activeTab={activeTab} selectedValue={selectedValue} />
-      {/* <ImageHero
-        HeroImage={HeaderImage}
-        HeroAlt={HeroAlt}
-        ImageHeading={ImageHeading}
-      /> */}
-      {/* <OurMissionSlider /> */}
+      <AboutUs isMobile={isMobile} isLaptop={isLaptop} />
+      {/* <Box>
+        <a
+          href="https://drive.google.com/file/d/1gViOenf1wgYhR1jLA6Bsl1lGt1CrkLRW/view?usp=sharing"
+          download="bravitpharmaceuticals"
+        >
+          click me
+        </a>
+      </Box> */}
       <Footer />
       <FooterLine />
     </>

@@ -7,6 +7,7 @@ import { useStore } from "react-redux";
 import { wrapper } from "../redux/store";
 import { StateContext } from "../context/StateContext";
 import { Toaster } from "react-hot-toast";
+import WhatsAppButton from "../Components/ContactUs/WhatsAppButton";
 
 function MyApp({ Component, pageProps }) {
   const store = useStore((state) => state);
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps }) {
       <Provider store={store}>
         {/* <PresistGate loading={null} persistor={store.__presistor}> */}
         <Toaster />
+        <WhatsAppButton />
         <Component {...pageProps} />
         {/* </PresistGate> */}
       </Provider>

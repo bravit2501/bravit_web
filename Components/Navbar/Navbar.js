@@ -8,6 +8,8 @@ import {
   useTheme,
   Badge,
   IconButton,
+  Button,
+  Menu,
 } from "@mui/material";
 import Image from "next/image";
 import { styled } from "@mui/material/styles";
@@ -27,18 +29,43 @@ import DesignServicesRoundedIcon from "@mui/icons-material/DesignServicesRounded
 import BookRoundedIcon from "@mui/icons-material/BookRounded";
 import ConnectWithoutContactRoundedIcon from "@mui/icons-material/ConnectWithoutContactRounded";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LoginIcon from "@mui/icons-material/Login";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import UserProfileMenu from "./userProfileMenu";
+import LogoutUser from "../../firebase/actions/logoutUser";
+import toast from "react-hot-toast";
 
-const Navbar = (props, { activeTab, selectedTab }) => {
+const Navbar = ({ activeTab, selectedTab, isLoggedIn, userLogoutSuccess }) => {
   const router = useRouter();
   const [value, setValue] = useState();
+  const [profileMenu, setProfileMenu] = useState(null);
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { showCart, setShowCart, totalQuantities } = useStateContext();
 
+  const handleOpenProfileMenu = (e) => {
+    setProfileMenu(e.currentTarget);
+  };
+  const handleCloseProfileMenu = () => {
+    setProfileMenu(null);
+  };
   const handleChange = (e, value) => {
     e.preventDefault();
     setValue(value);
     router.push(value);
+  };
+  const onClickDashboard = () => {
+    router.push("/dashboard");
+  };
+  const onClickLogout = async () => {
+    setProfileMenu(null);
+    try {
+      LogoutUser(userLogoutSuccess);
+      toast.success("successfully logged out");
+    } catch (err) {
+      console.log("🚀 ~ file: Navbar.js ~ line 64 ~ onClickLogout ~ err", err);
+      toast.error("You are not logged out");
+    }
   };
   return (
     <React.Fragment>
@@ -96,6 +123,41 @@ const Navbar = (props, { activeTab, selectedTab }) => {
               <ShoppingCartIcon color="#310a10" />
             </StyledBadge>
           </IconButton>
+          {isLoggedIn ? (
+            <>
+              <IconButton
+                aria-label="cart"
+                sx={{ color: "#310a10" }}
+                onClick={handleOpenProfileMenu}
+              >
+                <AccountCircleIcon color="#310a10" />
+              </IconButton>
+              <Menu
+                anchorEl={profileMenu}
+                keepMounted
+                open={Boolean(profileMenu)}
+                onClose={handleCloseProfileMenu}
+              >
+                <UserProfileMenu
+                  onClickLogout={onClickLogout}
+                  onClickDashboard={onClickDashboard}
+                />
+              </Menu>
+            </>
+          ) : (
+            <Button
+              variant="outlined"
+              startIcon={<LoginIcon />}
+              sx={{
+                color: "#310a10",
+                border: "none",
+                ":hover": { color: "#AE0000", border: "none" },
+              }}
+              onClick={() => router.push("/login")}
+            >
+              signin
+            </Button>
+          )}
           <Cart />
         </Toolbar>
       </AppBar>

@@ -8,7 +8,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useStateContext } from "../../context/StateContext";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -20,8 +20,15 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Bravit_round_logo from "../../assets/Bravit_round_logo.png";
 import { useRouter } from "next/router";
+import { connect } from "react-redux";
+import { userLogoutSuccess, userLogginSuccess } from "../../redux/userSlice";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
 
-const Cart = () => {
+const Cart = ({ userData, isLoggedIn }) => {
+  const { email, name, phoneNumber, userId, shippingPinCode, shippingAddress } =
+    userData;
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isLaptop = useMediaQuery(theme.breakpoints.between("md", "xl"));
@@ -38,6 +45,12 @@ const Cart = () => {
   const cartRef = useRef();
 
   const makePayment = async () => {
+    if (!isLoggedIn) {
+      toast.error("your not logged in Bravit, please login for checkout.");
+      setShowCart(false);
+      router.push("/login");
+      return;
+    }
     const res = await initializeRazorpay();
 
     if (!res) {
@@ -65,18 +78,31 @@ const Cart = () => {
         // alert(response.razorpay_payment_id);
         // alert(response.razorpay_order_id);
         // alert(response.razorpay_signature);
+        const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+          response;
+        setDoc(doc(db, `users/${userId}/CartItems`, razorpay_payment_id), {
+          razorpay_payment_id,
+          razorpay_signature,
+          razorpay_order_id,
+          cartItems,
+          totalPrice,
+          totalQuantities,
+          userId,
+          createdAt: serverTimestamp(),
+        });
         router.push("/success");
       },
-      // prefill: {
-      //   name: "Manu Arora",
-      //   email: "manuarorawork@gmail.com",
-      //   contact: "9999999999",
-      // },
+      prefill: {
+        name: name,
+        email: email,
+        contact: phoneNumber,
+      },
       notes: {
-        address: "vadodara",
-        name: "Abc",
-        email: "abc@gmail.com",
-        phone: "8154036407",
+        name: name,
+        email: email,
+        shippingAddress: shippingAddress,
+        shippingPinCode: shippingPinCode,
+        contact: phoneNumber,
       },
     };
 
@@ -354,7 +380,16 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+const mapStateToProps = (state) => ({
+  userData: state.user.userData,
+  isLoggedIn: state.user.isLoggedIn,
+});
+
+const mapDispatchToProps = {
+  userLogginSuccess,
+  userLogoutSuccess,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
 
 const BuyButton = styled(Button)({
   boxShadow: "none",

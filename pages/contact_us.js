@@ -3,6 +3,7 @@ import Navbar from "../Components/Navbar/Navbar";
 import Head from "next/head";
 import Footer from "../Components/Footer/Footer";
 import FooterLine from "../Components/Footer/FooterLine";
+import ContactUs from "../Components/ContactUs/ContactUs";
 
 const contact_us = () => {
   const activeTab = "/contact_us";
@@ -15,6 +16,7 @@ const contact_us = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar activeTab={activeTab} selectedValue={selectedValue} />
+      <ContactUs />
       <Footer />
       <FooterLine />
     </>

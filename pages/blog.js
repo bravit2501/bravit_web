@@ -3,6 +3,7 @@ import Navbar from "../Components/Navbar/Navbar";
 import Head from "next/head";
 import Footer from "../Components/Footer/Footer";
 import FooterLine from "../Components/Footer/FooterLine";
+import CommingSoon from "../Components/CommingSoon/CommingSoon";
 
 const blog = () => {
   const activeTab = "/blog";
@@ -15,6 +16,7 @@ const blog = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar activeTab={activeTab} selectedValue={selectedValue} />
+      <CommingSoon />
       <Footer />
       <FooterLine />
     </>

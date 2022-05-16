@@ -13,7 +13,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -33,6 +33,7 @@ const Footer = () => {
     e.preventDefault();
     router.push(value);
   };
+
   return (
     <Box
       sx={{

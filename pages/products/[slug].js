@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 const ProductDetails = ({ products, product }) => {
   const router = useRouter();
   const { slug } = router?.query;
-  console.log("🚀 ~ file: [slug].js ~ line 11 ~ ProductDetails ~ slug", slug);
   const { decQty, incQty, qty, onAdd } = useStateContext();
 
   return (
