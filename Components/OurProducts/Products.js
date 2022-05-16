@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import P1 from "../../assets/Hero_Slider/Slider_1.png";
 import { urlFor } from "../../lib/client";
 
 const Products = ({ products, isMobile, isLaptop }) => {
