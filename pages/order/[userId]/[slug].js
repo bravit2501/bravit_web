@@ -69,6 +69,7 @@ const OrderDetails = ({ OrderData }) => {
                 <img
                   src={urlFor(item?.image[0])}
                   style={{ width: "100px", height: "100px" }}
+                  alt={item.name}
                 />
                 <Box sx={{ marginLeft: "10px" }}>
                   <Box

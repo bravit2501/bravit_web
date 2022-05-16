@@ -6,7 +6,7 @@ import FooterLine from "../Components/Footer/FooterLine";
 import { useTheme, useMediaQuery } from "@mui/material";
 import AboutUs from "../Components/AboutUs/AboutUs";
 
-const about = () => {
+const About = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isLaptop = useMediaQuery(theme.breakpoints.between("md", "xl"));
@@ -21,18 +21,10 @@ const about = () => {
       </Head>
       <Navbar activeTab={activeTab} selectedValue={selectedValue} />
       <AboutUs isMobile={isMobile} isLaptop={isLaptop} />
-      {/* <Box>
-        <a
-          href="https://drive.google.com/file/d/1gViOenf1wgYhR1jLA6Bsl1lGt1CrkLRW/view?usp=sharing"
-          download="bravitpharmaceuticals"
-        >
-          click me
-        </a>
-      </Box> */}
       <Footer />
       <FooterLine />
     </>
   );
 };
 
-export default about;
+export default About;
