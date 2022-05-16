@@ -31,7 +31,7 @@ import ConnectWithoutContactRoundedIcon from "@mui/icons-material/ConnectWithout
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LoginIcon from "@mui/icons-material/Login";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import UserProfileMenu from "./userProfileMenu";
+import UserProfileMenu from "./UserProfileMenu";
 import LogoutUser from "../../firebase/actions/logoutUser";
 import toast from "react-hot-toast";
 
@@ -63,7 +63,6 @@ const Navbar = ({ activeTab, selectedTab, isLoggedIn, userLogoutSuccess }) => {
       LogoutUser(userLogoutSuccess);
       toast.success("successfully logged out");
     } catch (err) {
-      console.log("🚀 ~ file: Navbar.js ~ line 64 ~ onClickLogout ~ err", err);
       toast.error("You are not logged out");
     }
   };
