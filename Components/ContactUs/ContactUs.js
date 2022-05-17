@@ -47,7 +47,7 @@ const ContactUs = () => {
           <Box
             sx={{
               display: "flex",
-              width: "80%",
+              // width: "80%",
               margin: "auto",
               flexDirection: "column",
               justifyContent: "center",
@@ -62,7 +62,7 @@ const ContactUs = () => {
           item
           xs={12}
           sm={12}
-          md={6}
+          lg={6}
           sx={{
             marginTop: "auto",
             marginBottom: "auto",
@@ -72,7 +72,7 @@ const ContactUs = () => {
         >
           <Box
             sx={{
-              width: "80%",
+              // width: "80%",
               marginLeft: "auto",
               marginRight: "auto",
             }}

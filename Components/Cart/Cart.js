@@ -90,6 +90,16 @@ const Cart = ({ userData, isLoggedIn }) => {
           userId,
           createdAt: serverTimestamp(),
         });
+        setDoc(doc(db, `cartItems`, razorpay_payment_id), {
+          razorpay_payment_id,
+          razorpay_signature,
+          razorpay_order_id,
+          cartItems,
+          totalPrice,
+          totalQuantities,
+          userId,
+          createdAt: serverTimestamp(),
+        });
         router.push("/success");
       },
       prefill: {

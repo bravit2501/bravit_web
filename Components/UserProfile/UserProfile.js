@@ -174,7 +174,7 @@ const UserProfile = ({ userData }) => {
           </Typography>
           {purchasedItems?.map((item) => {
             console.log(
-              "🚀 ~ file: UserProfile.js ~ line 158 ~ purchasedItems.map ~ item",
+              "🚀 ~ file: UserProfile.js ~ line 214 ~ {purchasedItems?.map ~ item",
               item.data(),
             );
             return (
@@ -186,19 +186,34 @@ const UserProfile = ({ userData }) => {
                     marginBottom: "10px",
                     cursor: "pointer",
                   }}
-                  onClick={() =>
-                    router.push(
-                      `/order/${userId}/${item.data().razorpay_payment_id}`,
-                    )
-                  }
+                  // onClick={() =>
+                  //   router.push(
+                  //     `/order/${userId}/${item.data().razorpay_payment_id}`,
+                  //   )
+                  // }
                 >
                   <CardContent>
                     <Typography>
                       Order Id: {item.data().razorpay_order_id}
                     </Typography>
                     <Typography>
-                      Purchase Date: {Date(item.data().createdAt * 1000)}
+                      Payment Id: {item.data().razorpay_payment_id}
                     </Typography>
+                    <Typography>
+                      Total Price: {item.data().totalPrice}
+                    </Typography>
+                    <Typography>
+                      Purchase Date:{" "}
+                      {item.data().createdAt.toDate().toDateString()}
+                    </Typography>
+                    <Typography>Your Products</Typography>
+                    {item.data().cartItems.map((item, index) => {
+                      return (
+                        <Typography key={index}>
+                          {item.name} X {item.quantity}
+                        </Typography>
+                      );
+                    })}
                   </CardContent>
                 </Card>
               </>
