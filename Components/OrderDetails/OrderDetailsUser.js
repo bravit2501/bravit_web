@@ -2,7 +2,14 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { urlFor } from "../../lib/client";
 
-const OrderDetails = ({ isMobile, OrderData }) => {
+const OrderDetails = ({ isMobile, orderData }) => {
+  if (orderData == null || orderData === undefined) {
+    return (
+      <div>
+        <p>no data found</p>
+      </div>
+    );
+  }
   const {
     cartItems,
     razorpay_payment_id,
@@ -10,7 +17,7 @@ const OrderDetails = ({ isMobile, OrderData }) => {
     createdAt,
     razorpay_order_id,
     totalPrice,
-  } = OrderData;
+  } = orderData;
   return (
     <>
       <Box

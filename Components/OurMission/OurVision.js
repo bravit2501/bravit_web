@@ -2,10 +2,6 @@ import { Box, Card, Grid, Typography, styled } from "@mui/material";
 import React from "react";
 
 const OurVision = ({ isMobile, isLaptop }) => {
-  console.log(
-    "🚀 ~ file: OurVision.js ~ line 5 ~ OurVision ~ isLaptop",
-    isLaptop,
-  );
   const ourVisionText = [
     {
       quote:

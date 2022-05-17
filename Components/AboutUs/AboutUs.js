@@ -53,7 +53,7 @@ const AboutUs = ({ isMobile, isLaptop }) => {
             container
             rowSpacing={1}
             columnSpacing={{ sm: 2, md: 3 }}
-            ket={i}
+            key={i}
             sx={{
               display: "flex",
               flexDirection: i % 2 === 0 ? "row-reverse" : "row",
@@ -142,6 +142,7 @@ const AboutUs = ({ isMobile, isLaptop }) => {
             download="bravitpharmaceuticals"
             style={{ courser: "pointer" }}
             target="_blank"
+            rel="noreferrer"
           >
             <HeroButton
               variant="outlined"

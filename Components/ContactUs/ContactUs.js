@@ -177,7 +177,7 @@ const ContactUs = () => {
           minHeight: "500px",
           margin: "auto",
         }}
-        allowfullscreen=""
+        allowFullScreen=""
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
       />

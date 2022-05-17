@@ -46,7 +46,7 @@ const Products = ({ products, isMobile, isLaptop }) => {
       <Grid container rowSpacing={3} columnSpacing={{ sm: 2, md: 3 }}>
         {products.map((item, index) => (
           <Grid item xs={12} sm={12} md={4} lg={4} key={index}>
-            <Link href={`/products/${item.slug.current}`}>
+            <Link href={`/products/${item.slug.current}`} passHref>
               <OurProductCard
                 key={index}
                 sx={{ minHeight: isLaptop ? "500px" : "none" }}
