@@ -19,6 +19,7 @@ export default function Home() {
   const isLaptop = useMediaQuery(theme.breakpoints.between("md", "xl"));
   const activeTab = "/";
   const selectedValue = 0;
+  console.log(NEXT_PUBLIC_SANITY_TOKEN);
   return (
     <>
       <Head>
