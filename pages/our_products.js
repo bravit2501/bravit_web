@@ -23,18 +23,17 @@ const Our_Products = ({ products }) => {
       </Head>
       <Navbar activeTab={activeTab} selectedValue={selectedValue} />
       <HeroSlider />
-      <Products products={products} isMobile={isMobile} isLaptop={isLaptop} />
+      {products && (
+        <Products products={products} isMobile={isMobile} isLaptop={isLaptop} />
+      )}
+      {!products && <p>No Data Found</p>}
       <Footer />
       <FooterLine />
     </>
   );
 };
 
-export async function getServerSideProps({ req, res }) {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59",
-  );
+export async function getServerSideProps() {
   const query = '*[_type == "product"]';
   const products = await client.fetch(query);
 
