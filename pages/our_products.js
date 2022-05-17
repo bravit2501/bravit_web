@@ -8,14 +8,14 @@ import Products from "../Components/OurProducts/Products";
 import { client } from "../lib/client";
 import { useTheme, useMediaQuery } from "@mui/material";
 
-export async function getServerSideProps() {
-  const query = '*[_type == "product"]';
-  const products = await client.fetch(query);
+// export async function getServerSideProps() {
+//   const query = '*[_type == "product"]';
+//   const products = await client.fetch(query);
 
-  return {
-    props: { products },
-  };
-}
+//   return {
+//     props: { products },
+//   };
+// }
 
 const Our_Products = ({ products }) => {
   const theme = useTheme();
@@ -65,14 +65,14 @@ const Our_Products = ({ products }) => {
 //   };
 // };
 
-// export const getStaticProps = async () => {
-//   const productsQuery = '*[_type == "product"]';
+export const getStaticProps = async () => {
+  const productsQuery = '*[_type == "product"]';
 
-//   const products = await client.fetch(productsQuery);
+  const products = await client.fetch(productsQuery);
 
-//   return {
-//     props: { products },
-//   };
-// };
+  return {
+    props: { products },
+  };
+};
 
 export default Our_Products;
