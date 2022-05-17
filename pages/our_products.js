@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
 import FooterLine from "../Components/Footer/FooterLine";
@@ -8,8 +8,18 @@ import Products from "../Components/OurProducts/Products";
 import { client } from "../lib/client";
 import { useTheme, useMediaQuery } from "@mui/material";
 
+export async function getServerSideProps() {
+  const query = '*[_type == "product"]';
+  const products = await client.fetch(query);
+
+  return {
+    props: { products },
+  };
+}
+
 const Our_Products = ({ products }) => {
   const theme = useTheme();
+
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isLaptop = useMediaQuery(theme.breakpoints.between("md", "xl"));
   const activeTab = "/our_products";
@@ -32,15 +42,6 @@ const Our_Products = ({ products }) => {
     </>
   );
 };
-
-export async function getServerSideProps() {
-  const query = '*[_type == "product"]';
-  const products = await client.fetch(query);
-
-  return {
-    props: { products },
-  };
-}
 
 // export const getStaticPaths = async () => {
 //   const query = `*[_type == "product"] {
