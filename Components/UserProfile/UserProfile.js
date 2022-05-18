@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { db } from "../../firebase/firebase";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, orderBy } from "firebase/firestore";
 import { useRouter } from "next/router";
 
 import {
@@ -35,6 +35,7 @@ const UserProfile = ({ userData }) => {
   const fetchUserCartItems = async () => {
     const querySnapshot = await getDocs(
       collection(db, `users/${userId}/CartItems`),
+      orderBy("timestamp", "desc"),
     );
     console.log(
       "🚀 ~ file: UserProfile.js ~ line 31 ~ fetchUserCartItems ~ querySnapshot",
@@ -197,23 +198,20 @@ const UserProfile = ({ userData }) => {
                       Order Id: {item.data().razorpay_order_id}
                     </Typography>
                     <Typography>
-                      Payment Id: {item.data().razorpay_payment_id}
-                    </Typography>
-                    <Typography>
                       Total Price: {item.data().totalPrice}
                     </Typography>
                     <Typography>
                       Purchase Date:{" "}
                       {item.data().createdAt.toDate().toDateString()}
                     </Typography>
-                    <Typography>Your Products</Typography>
+                    {/* <Typography>Your Products</Typography>
                     {item.data().cartItems.map((item, index) => {
                       return (
                         <Typography key={index}>
                           {item.name} X {item.quantity}
                         </Typography>
                       );
-                    })}
+                    })} */}
                   </CardContent>
                 </Card>
               </>
