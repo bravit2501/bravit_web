@@ -11,8 +11,27 @@ import {
 import Link from "next/link";
 import React from "react";
 import { urlFor } from "../../lib/client";
+import { Triangle } from "react-loader-spinner";
 
-const Products = ({ products, isMobile, isLaptop }) => {
+const Products = ({ products, isMobile, isLaptop, isLoading }) => {
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          width: isMobile ? "80%" : "60%",
+          marginLeft: "auto",
+          marginRight: "auto",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: isMobile ? "300px" : "600px",
+        }}
+      >
+        <Triangle color="#310a10" height={80} width={80} />;
+      </Box>
+    );
+  }
   return (
     <Box
       sx={{

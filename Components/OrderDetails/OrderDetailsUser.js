@@ -1,13 +1,25 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import { urlFor } from "../../lib/client";
+import { Triangle } from "react-loader-spinner";
 
-const OrderDetails = ({ isMobile, orderData }) => {
-  if (orderData == null || orderData === undefined) {
+const OrderDetails = ({ isMobile, orderData, isLoading }) => {
+  if (isLoading) {
     return (
-      <div>
-        <p>no data found</p>
-      </div>
+      <Box
+        sx={{
+          width: isMobile ? "80%" : "60%",
+          marginLeft: "auto",
+          marginRight: "auto",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: isMobile ? "300px" : "600px",
+        }}
+      >
+        <Triangle color="#310a10" height={80} width={80} />;
+      </Box>
     );
   }
   const {
@@ -38,7 +50,7 @@ const OrderDetails = ({ isMobile, orderData }) => {
           }}
         >
           {cartItems.length >= 1 &&
-            cartItems.map((item, index) => (
+            cartItems.map((item) => (
               <Box
                 key={item._id}
                 sx={{

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../../firebase/firebase";
-import { doc, getDoc, getDocs, collection } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { connect } from "react-redux";
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
 import Footer from "../../../Components/Footer/Footer";
 import FooterLine from "../../../Components/Footer/FooterLine";
@@ -10,14 +10,23 @@ import Navbar from "../../../Components/Navbar/Navbar";
 import Head from "next/head";
 import OrderDetailsUser from "../../../Components/OrderDetails/OrderDetailsUser";
 
-const OrderDetails = ({ OrderData }) => {
-  console.log(
-    "🚀 ~ file: [slug].js ~ line 14 ~ OrderDetails ~ OrderData",
-    OrderData,
-  );
-
+const OrderDetails = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [orderData, setOrderData] = useState(null);
+  const router = useRouter();
+  const { slug, userId } = router?.query;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    async function fetchOrderData() {
+      const docRef = doc(db, `users/${userId}/CartItems`, slug);
+      const OrderData = await getDoc(docRef);
+      setOrderData(OrderData.data());
+      setIsLoading(false);
+    }
+    fetchOrderData();
+  }, [router]);
 
   return (
     <>
@@ -27,39 +36,16 @@ const OrderDetails = ({ OrderData }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <OrderDetailsUser isMobile={isMobile} orderData={OrderData} />
+      <OrderDetailsUser
+        isMobile={isMobile}
+        orderData={orderData}
+        isLoading={isLoading}
+      />
       <Footer />
       <FooterLine />
     </>
   );
 };
-
-export async function getServerSideProps({ params }) {
-  const docRef = doc(db, `users/${params.userId}/CartItems`, params.slug);
-  const OrderData = await getDoc(docRef);
-  const FDData = OrderData.data();
-  return {
-    props: { OrderData: FDData },
-  };
-}
-
-// export const getStaticPaths = async () => {
-//   const querySnapshot = await getDocs(collection(db, `cartItems`));
-//   const storeData = querySnapshot.docs;
-//   const path = storeData.map((item) => {
-//     const { userId, razorpay_payment_id } = item.data();
-//     return {
-//       params: {
-//         userId: `${userId}`,
-//         slug: razorpay_payment_id,
-//       },
-//     };
-//   });
-//   return {
-//     paths: path,
-//     fallback: false,
-//   };
-// };
 
 const mapStateToProps = (state) => ({
   userData: state.user.userData,

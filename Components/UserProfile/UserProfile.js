@@ -186,11 +186,11 @@ const UserProfile = ({ userData }) => {
                     marginBottom: "10px",
                     cursor: "pointer",
                   }}
-                  // onClick={() =>
-                  //   router.push(
-                  //     `/order/${userId}/${item.data().razorpay_payment_id}`,
-                  //   )
-                  // }
+                  onClick={() =>
+                    router.push(
+                      `/order/${userId}/${item.data().razorpay_payment_id}`,
+                    )
+                  }
                 >
                   <CardContent>
                     <Typography>

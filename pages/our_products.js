@@ -8,17 +8,20 @@ import Products from "../Components/OurProducts/Products";
 import { client } from "../lib/client";
 import { useTheme, useMediaQuery } from "@mui/material";
 
-// export async function getServerSideProps() {
-//   const query = '*[_type == "product"]';
-//   const products = await client.fetch(query);
-
-//   return {
-//     props: { products },
-//   };
-// }
-
-const Our_Products = ({ products }) => {
+const Our_Products = () => {
   const theme = useTheme();
+  const [isLoading, setIsLoading] = useState(true);
+  const [productData, setProductData] = useState(null);
+  useEffect(() => {
+    async function fetchProductData() {
+      const productsQuery = '*[_type == "product"]';
+
+      const products = await client.fetch(productsQuery);
+      setProductData(products);
+      setIsLoading(false);
+    }
+    fetchProductData();
+  });
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isLaptop = useMediaQuery(theme.breakpoints.between("md", "xl"));
@@ -33,46 +36,16 @@ const Our_Products = ({ products }) => {
       </Head>
       <Navbar activeTab={activeTab} selectedValue={selectedValue} />
       <HeroSlider />
-      {products && (
-        <Products products={products} isMobile={isMobile} isLaptop={isLaptop} />
-      )}
-      {!products && <p>No Data Found</p>}
+      <Products
+        products={productData}
+        isMobile={isMobile}
+        isLaptop={isLaptop}
+        isLoading={isLoading}
+      />
       <Footer />
       <FooterLine />
     </>
   );
-};
-
-// export const getStaticPaths = async () => {
-//   const query = `*[_type == "product"] {
-//     slug {
-//       current
-//     }
-//   }
-//   `;
-
-//   const products = await client.fetch(query);
-
-//   const paths = products.map((product) => ({
-//     params: {
-//       slug: product.slug.current,
-//     },
-//   }));
-
-//   return {
-//     paths,
-//     fallback: "blocking",
-//   };
-// };
-
-export const getStaticProps = async () => {
-  const productsQuery = '*[_type == "product"]';
-
-  const products = await client.fetch(productsQuery);
-
-  return {
-    props: { products },
-  };
 };
 
 export default Our_Products;
