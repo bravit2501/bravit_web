@@ -11,11 +11,30 @@ import React, { useState } from "react";
 import { urlFor } from "../../lib/client";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { Triangle } from "react-loader-spinner";
 
-const ProductDetail = ({ products, product, decQty, incQty, qty, onAdd }) => {
+const ProductDetail = ({ product, decQty, incQty, qty, onAdd, isLoading }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [index, setIndex] = useState(0);
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          width: isMobile ? "80%" : "60%",
+          marginLeft: "auto",
+          marginRight: "auto",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: isMobile ? "300px" : "600px",
+        }}
+      >
+        <Triangle color="#310a10" height={80} width={80} />;
+      </Box>
+    );
+  }
   return (
     <Box
       sx={{
