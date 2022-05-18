@@ -50,7 +50,7 @@ const FooterLine = () => {
                 }}
               >
                 Designed By{" "}
-                <Link passhref href="www.rmcoderz.com" target="_blank">
+                <Link passhref href="https://www.rmcoderz.com/" target="_blank">
                   <a
                     style={{
                       cursor: "pointer",
@@ -73,7 +73,21 @@ const FooterLine = () => {
                   color: "#310a10",
                 }}
               >
-                Copyright © 2022 Bravit Pharmaceuticals Pvt. Ltd.
+                <Link
+                  passhref
+                  href="https://bravitpharmaceutials.com/"
+                  target="_blank"
+                >
+                  <a
+                    style={{
+                      cursor: "pointer",
+                      textDecoration: "none",
+                      color: "#310a10",
+                    }}
+                  >
+                    Copyright © 2022 Bravit Pharmaceuticals Pvt. Ltd.
+                  </a>
+                </Link>
               </Typography>
             </Box>
           </Grid>
@@ -84,7 +98,11 @@ const FooterLine = () => {
                 justifyContent: "center",
               }}
             >
-              <Link passhref href="https://www.facebook.com/RMCoderz/">
+              <Link
+                passhref
+                href="https://www.facebook.com/bravit.pharmaceuticals"
+                target="_blank"
+              >
                 <a
                   style={{
                     cursor: "pointer",
@@ -96,7 +114,11 @@ const FooterLine = () => {
                   </SocialButtons>
                 </a>
               </Link>
-              <Link passhref href="https://www.instagram.com/rmcoderz/">
+              <Link
+                passhref
+                href="https://www.instagram.com/bravitpharmaceuticalspvtltd/"
+                target="_blank"
+              >
                 <a
                   style={{
                     cursor: "pointer",
@@ -110,7 +132,8 @@ const FooterLine = () => {
               </Link>
               <Link
                 passhref
-                href="https://www.linkedin.com/in/rm-coderz-56a189238/"
+                href="https://www.linkedin.com/in/bravit-pharmaceuticals-pvt-ltd-9452701ba/"
+                target="_blank"
               >
                 <a
                   style={{
@@ -123,7 +146,7 @@ const FooterLine = () => {
                   </SocialButtons>
                 </a>
               </Link>
-              <Link passhref href="https://twitter.com/RMCoderz">
+              <Link passhref href="https://twitter.com/BravitP" target="_blank">
                 <a
                   style={{
                     cursor: "pointer",

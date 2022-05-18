@@ -10,6 +10,8 @@ import {
   IconButton,
   Button,
   Menu,
+  Typography,
+  Box,
 } from "@mui/material";
 import Image from "next/image";
 import { styled } from "@mui/material/styles";
@@ -22,7 +24,7 @@ import { useStateContext } from "../../context/StateContext";
 import Cart from "../Cart/Cart";
 
 // Imgaes
-import Logo from "../../assets/logo/bravit_white.png";
+import Logo from "../../assets/Bravit_round_logo.png";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import DesignServicesRoundedIcon from "@mui/icons-material/DesignServicesRounded";
@@ -75,7 +77,32 @@ const Navbar = ({ activeTab, selectedTab, isLoggedIn, userLogoutSuccess }) => {
       >
         <Toolbar>
           <Link sx={{ cursor: "pointer" }} href="/" passHref>
-            <Image src={Logo} alt="RM <CODERZ>" width={120} height={40} />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
+              <Image
+                src={Logo}
+                alt="Bravit Pharmaceuticals Pvt. Ltd."
+                width={50}
+                height={50}
+              />
+              {!isMatch && (
+                <Typography sx={{ color: "#310a10", fontWeight: "bolder" }}>
+                  BRAVIT PHARMACEUTICALS Pvt. Ltd.
+                </Typography>
+              )}
+            </Box>
+            {/* <Image
+              src={Logo}
+              alt="Bravit Pharmaceuticals Pvt. Ltd."
+              width={120}
+              height={40}
+            /> */}
           </Link>
           {isMatch ? (
             <MobileDrawer />

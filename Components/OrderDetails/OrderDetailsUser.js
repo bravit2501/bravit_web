@@ -18,7 +18,7 @@ const OrderDetails = ({ isMobile, orderData, isLoading }) => {
           minHeight: isMobile ? "300px" : "600px",
         }}
       >
-        <Triangle color="#310a10" height={80} width={80} />;
+        <Triangle color="#310a10" height={80} width={80} />
       </Box>
     );
   }

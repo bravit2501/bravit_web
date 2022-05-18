@@ -49,84 +49,107 @@ const AboutUs = ({ isMobile, isLaptop }) => {
       </Box>
       <Box sx={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}>
         {ODArray?.map((item, i) => (
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ sm: 2, md: 3 }}
-            key={i}
-            sx={{
-              display: "flex",
-              flexDirection: i % 2 === 0 ? "row-reverse" : "row",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: "20px 0px",
-              backgroundColor: i % 2 === 0 ? "#310a10" : "#ffffe6",
-              padding: "10px",
-              border: `1px solid #e6e6e6`,
-              boxShadow: `10px 10px #e6e6e6`,
-            }}
-          >
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              lg={4}
+          <>
+            <Box
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Image
-                src={item.image}
-                alt={item.name}
-                width={item.width}
-                height={item.height}
-              />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              lg={8}
-              sx={{
-                marginTop: "auto",
-                marginBottom: "auto",
+                textAlign: "center",
                 marginLeft: "auto",
                 marginRight: "auto",
+                padding: isMobile ? "10px 0px 0px 0px" : "40px 0px 0px 0px",
               }}
             >
-              {isMobile ? (
-                <>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: "bold",
-                      color: i % 2 === 0 ? "#ffffe6" : "#310a10",
-                      fontSize: "16px",
-                      fontFamily: "Montserrat, sans-serif",
-                    }}
-                  >
-                    {item.description}
-                  </Typography>
-                </>
-              ) : (
-                <>
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      fontWeight: "bold",
-                      color: i % 2 === 0 ? "#ffffe6" : "#310a10",
-                      fontSize: isLaptop ? "18px" : "26px",
-                      fontFamily: "Montserrat, sans-serif",
-                    }}
-                  >
-                    {item.description}
-                  </Typography>
-                </>
-              )}
+              <Typography
+                variant="h4"
+                sx={{
+                  fontWeight: "bolder",
+                  padding: isMobile ? "10px 0px" : "40px 0px",
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: isMobile ? "20px" : "40px",
+                  color: "#310a10",
+                }}
+              >
+                {item.name}
+              </Typography>
+            </Box>
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ sm: 2, md: 3 }}
+              key={i}
+              sx={{
+                display: "flex",
+                flexDirection: i % 2 === 0 ? "row-reverse" : "row",
+                justifyContent: "center",
+                alignItems: "center",
+                // margin: "20px 0px",
+                backgroundColor: "#ffffe6",
+                padding: "10px",
+                border: `1px solid #310a10`,
+                boxShadow: `10px 10px #310a10`,
+              }}
+            >
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                lg={4}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={item.width}
+                  height={item.height}
+                />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                lg={8}
+                sx={{
+                  marginTop: "auto",
+                  marginBottom: "auto",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+              >
+                {isMobile ? (
+                  <>
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        fontWeight: "bold",
+                        color: "#310a10",
+                        fontSize: "16px",
+                        fontFamily: "Montserrat, sans-serif",
+                      }}
+                    >
+                      {item.description}
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    <Typography
+                      variant="h3"
+                      sx={{
+                        fontWeight: "bold",
+                        color: "#310a10",
+                        fontSize: isLaptop ? "18px" : "26px",
+                        fontFamily: "Montserrat, sans-serif",
+                      }}
+                    >
+                      {item.description}
+                    </Typography>
+                  </>
+                )}
+              </Grid>
             </Grid>
-          </Grid>
+          </>
         ))}
         <Box
           sx={{
