@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { db } from "../../firebase/firebase";
-import { doc, getDoc, collection, getDocs, orderBy } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 import { useRouter } from "next/router";
 
 import {
@@ -18,19 +27,25 @@ const UserProfile = ({ userData }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [purchasedItems, setPurchasedItems] = useState([]);
+  const [orderData, setOrderData] = useState([]);
+  console.log(
+    "🚀 ~ file: UserProfile.js ~ line 31 ~ UserProfile ~ orderData",
+    orderData,
+  );
+  purchasedItems?.reverse();
   console.log(
     "🚀 ~ file: UserProfile.js ~ line 18 ~ UserProfile ~ purchasedItems",
     purchasedItems,
   );
-  const { email, name, phoneNumber, userId, shippingAddress, shippingPinCode } =
-    userData;
-
-  const fetchUserProfile = async () => {
-    const docRef = doc(db, "users", userId);
-    const userData = await getDoc(docRef);
-    const user = userData.data();
-    console.log("🚀 ~ file: dashboard.js ~ line 21 ~ Dashboard ~ user", user);
-  };
+  const {
+    email,
+    name,
+    phoneNumber,
+    userId,
+    shippingAddress,
+    shippingPinCode,
+    isOwner,
+  } = userData;
 
   const fetchUserCartItems = async () => {
     const querySnapshot = await getDocs(
@@ -42,6 +57,18 @@ const UserProfile = ({ userData }) => {
       querySnapshot.docs,
     );
     setPurchasedItems(querySnapshot.docs);
+  };
+
+  const fetchOrderData = async () => {
+    const orderRef = collection(db, "cartItems");
+    const Orders = query(orderRef, where("isDelivered", "==", false));
+    onSnapshot(Orders, (snapshot) => {
+      let order = [];
+      snapshot.docs.forEach((doc) => {
+        order.push({ ...doc.data(), id: doc.id });
+      });
+      setOrderData(order);
+    });
   };
 
   return (
@@ -132,7 +159,7 @@ const UserProfile = ({ userData }) => {
         </Typography>
       </Box>
       <Button
-        onClick={fetchUserProfile}
+        onClick={() => router.push(`/user/${userId}`)}
         sx={{
           color: "#310a10",
           border: "2px solid #310a10",
@@ -143,7 +170,7 @@ const UserProfile = ({ userData }) => {
         Update My Profile
       </Button>
       <Button
-        onClick={fetchUserCartItems}
+        onClick={isOwner ? fetchOrderData : fetchUserCartItems}
         sx={{
           color: "#310a10",
           border: "2px solid #310a10",
@@ -151,7 +178,7 @@ const UserProfile = ({ userData }) => {
           marginBottom: "20px",
         }}
       >
-        My Purchases
+        {isOwner ? "Show Orders" : "My Purchases"}
       </Button>
       {purchasedItems.length > 0 && (
         <Box
@@ -204,14 +231,54 @@ const UserProfile = ({ userData }) => {
                       Purchase Date:{" "}
                       {item.data().createdAt.toDate().toDateString()}
                     </Typography>
-                    {/* <Typography>Your Products</Typography>
-                    {item.data().cartItems.map((item, index) => {
-                      return (
-                        <Typography key={index}>
-                          {item.name} X {item.quantity}
-                        </Typography>
-                      );
-                    })} */}
+                  </CardContent>
+                </Card>
+              </>
+            );
+          })}
+        </Box>
+      )}
+      {orderData.length > 0 && (
+        <Box
+          sx={{
+            width: isMobile ? "80%" : "60%",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: "bolder",
+              padding: isMobile ? "10px 0px" : "30px 0px",
+              fontFamily: "Montserrat, sans-serif",
+              fontSize: isMobile ? "30px" : "60px",
+              color: "#310a10",
+            }}
+          >
+            Orders Details
+          </Typography>
+          {orderData.map((item, i) => {
+            return (
+              <>
+                <Card
+                  key={item.userId}
+                  sx={{
+                    backgroundColor: "#e6e6e6",
+                    marginBottom: "10px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() =>
+                    router.push(
+                      `/order/${item.userId}/${item.razorpay_payment_id}`,
+                    )
+                  }
+                >
+                  <CardContent>
+                    <Typography>Order Id: {item.razorpay_order_id}</Typography>
+                    <Typography>
+                      Purchase Date: {item.createdAt.toDate().toDateString()}
+                    </Typography>
                   </CardContent>
                 </Card>
               </>

@@ -66,10 +66,7 @@ const Products = ({ products, isMobile, isLaptop, isLoading }) => {
         {products.map((item, index) => (
           <Grid item xs={12} sm={12} md={4} lg={4} key={index}>
             <Link href={`/products/${item.slug.current}`} passHref>
-              <OurProductCard
-                key={index}
-                sx={{ minHeight: isLaptop ? "500px" : "none" }}
-              >
+              <OurProductCard sx={{ minHeight: isLaptop ? "600px" : "none" }}>
                 <CardMedia
                   component="img"
                   image={urlFor(item.image && item.image[0])}
@@ -118,9 +115,25 @@ const Products = ({ products, isMobile, isLaptop, isLoading }) => {
                             // color: "#310a10",
                           }}
                         >
-                          <label style={{ fontSize: "16px" }}>₹</label>
+                          <label style={{ fontSize: "16px" }}>
+                            offer Price: ₹
+                          </label>
                           {item.price}
                           <label style={{ fontSize: "16px" }}>.00</label>
+                        </Typography>
+                        <Typography
+                          variant="h5"
+                          sx={{
+                            fontFamily: "Montserrat, sans-serif",
+                            fontWeight: "bold",
+                            fontSize: "26px",
+                          }}
+                        >
+                          <label style={{ fontSize: "16px" }}>M.R.P. : ₹</label>
+                          <del>
+                            {item.mrp}
+                            <label style={{ fontSize: "16px" }}>.00</label>
+                          </del>
                         </Typography>
                       </Grid>
                       <Grid

@@ -12,6 +12,7 @@ import { urlFor } from "../../lib/client";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Triangle } from "react-loader-spinner";
+import SanityBlockContent from "@sanity/block-content-to-react";
 
 const ProductDetail = ({ product, decQty, incQty, qty, onAdd, isLoading }) => {
   const theme = useTheme();
@@ -115,24 +116,13 @@ const ProductDetail = ({ product, decQty, incQty, qty, onAdd, isLoading }) => {
             <Typography
               variant={isMobile ? "h6" : "h5"}
               sx={{
-                paddingBottom: "20px",
                 fontFamily: "Montserrat, sans-serif",
                 color: "#310a10",
               }}
             >
               Details:
             </Typography>
-            <Typography
-              variant={isMobile ? "h6" : "h5"}
-              sx={{
-                paddingBottom: "20px",
-                fontFamily: "Montserrat, sans-serif",
-                color: "#310a10",
-                fontWeight: "bold",
-              }}
-            >
-              {product.details}
-            </Typography>
+            <SanityBlockContent blocks={product.details} />
             <Typography
               variant="h5"
               sx={{
@@ -142,9 +132,23 @@ const ProductDetail = ({ product, decQty, incQty, qty, onAdd, isLoading }) => {
                 fontWeight: "bold",
               }}
             >
-              <label style={{ fontSize: "16px" }}>₹</label>
+              <label style={{ fontSize: "16px" }}>Offer Price: ₹</label>
               {product.price}
               <label style={{ fontSize: "16px" }}>.00</label>
+            </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: "bold",
+                fontSize: "26px",
+              }}
+            >
+              <label style={{ fontSize: "16px" }}>M.R.P. : ₹</label>
+              <del>
+                {product.mrp}
+                <label style={{ fontSize: "16px" }}>.00</label>
+              </del>
             </Typography>
             <Box
               sx={{
@@ -190,15 +194,6 @@ const ProductDetail = ({ product, decQty, incQty, qty, onAdd, isLoading }) => {
               >
                 Add to Cart
               </BuyButton>
-              {/* <BuyButton
-                sx={{
-                  margin: "25px 0px",
-                  padding: "6px 20px",
-                  minWidth: "300px",
-                }}
-              >
-                Buy Now
-              </BuyButton> */}
             </Box>
           </Box>
         </Grid>

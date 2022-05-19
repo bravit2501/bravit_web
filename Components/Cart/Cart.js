@@ -88,6 +88,7 @@ const Cart = ({ userData, isLoggedIn }) => {
           totalPrice,
           totalQuantities,
           userId,
+          isDelivered: false,
           createdAt: serverTimestamp(),
         });
         setDoc(doc(db, `cartItems`, razorpay_payment_id), {
@@ -98,6 +99,7 @@ const Cart = ({ userData, isLoggedIn }) => {
           totalPrice,
           totalQuantities,
           userId,
+          isDelivered: false,
           createdAt: serverTimestamp(),
         });
         router.push("/success");

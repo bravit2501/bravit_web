@@ -91,6 +91,7 @@ const LoginPage = ({ userLogginSuccess, userLogoutSuccess }) => {
         userId,
         shippingAddress,
         shippingPinCode,
+        isOwner,
       } = user;
       userLogginSuccess({
         email,
@@ -99,6 +100,7 @@ const LoginPage = ({ userLogginSuccess, userLogoutSuccess }) => {
         userId,
         shippingAddress,
         shippingPinCode,
+        isOwner,
       });
       toast.success(`Welcome ${name} your successfully Logged In at bravit.`);
       setIsLoading(false);

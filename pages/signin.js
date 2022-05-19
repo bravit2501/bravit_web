@@ -76,6 +76,7 @@ const Signin = ({ userLogginSuccess, userLogoutSuccess }) => {
         shippingAddress: values.shippingAddress,
         shippingPinCode: values.shippingPinCode,
         userId: uid,
+        isOwner: false,
       };
       const result = await setDoc(doc(db, "users", uid), {
         email: user.email,
@@ -84,6 +85,7 @@ const Signin = ({ userLogginSuccess, userLogoutSuccess }) => {
         shippingAddress: values.shippingAddress,
         shippingPinCode: values.shippingPinCode,
         userId: uid,
+        isOwner: false,
         createdAt: serverTimestamp(),
       });
 
@@ -100,7 +102,7 @@ const Signin = ({ userLogginSuccess, userLogoutSuccess }) => {
         toast.error(`Email address ${values.email} is invalid.`);
       } else {
         toast.error(
-          "your Registration faild due to some technical error, please try again later.",
+          "your Registration failed due to some technical error, please try again later.",
         );
       }
       userLogoutSuccess();

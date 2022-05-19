@@ -32,9 +32,15 @@ export default {
       type: "number",
     },
     {
+      name: "mrp",
+      title: "mrp",
+      type: "number",
+    },
+    {
       name: "details",
       title: "Details",
-      type: "string",
+      type: "array",
+      of: [{ type: "block" }],
     },
   ],
 };

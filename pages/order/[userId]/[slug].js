@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../../firebase/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { connect } from "react-redux";
 import { useTheme, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
@@ -9,24 +9,46 @@ import FooterLine from "../../../Components/Footer/FooterLine";
 import Navbar from "../../../Components/Navbar/Navbar";
 import Head from "next/head";
 import OrderDetailsUser from "../../../Components/OrderDetails/OrderDetailsUser";
+import { async } from "@firebase/util";
+import toast from "react-hot-toast";
 
-const OrderDetails = () => {
+const OrderDetails = ({ isLoggedIn, userData }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [orderData, setOrderData] = useState(null);
+  const [userDataFB, setUserData] = useState(null);
   const router = useRouter();
   const { slug, userId } = router?.query;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
+  const { isOwner } = userData;
   useEffect(() => {
     async function fetchOrderData() {
       const docRef = doc(db, `users/${userId}/CartItems`, slug);
       const OrderData = await getDoc(docRef);
       setOrderData(OrderData.data());
+      const userRef = doc(db, "users", userId);
+      const userData = await getDoc(userRef);
+      setUserData(userData.data());
       setIsLoading(false);
     }
     fetchOrderData();
   }, [router]);
+  if (!isLoggedIn) {
+    return router.push("/login");
+  }
+
+  const markProductDelivered = async () => {
+    const productDelivered = doc(db, `users/${userId}/CartItems`, slug);
+    const cartUpdate = doc(db, "cartItems", slug);
+
+    await updateDoc(productDelivered, {
+      isDelivered: true,
+    });
+    await updateDoc(cartUpdate, {
+      isDelivered: true,
+    });
+    toast.success(`Order No. ${slug} marked as delivered`);
+  };
 
   return (
     <>
@@ -39,7 +61,10 @@ const OrderDetails = () => {
       <OrderDetailsUser
         isMobile={isMobile}
         orderData={orderData}
+        userData={userDataFB}
         isLoading={isLoading}
+        isOwner={isOwner}
+        markProductDelivered={markProductDelivered}
       />
       <Footer />
       <FooterLine />
