@@ -32,10 +32,7 @@ const OrderDetails = ({ isLoggedIn, userData }) => {
       setIsLoading(false);
     }
     fetchOrderData();
-  }, [router]);
-  if (!isLoggedIn) {
-    return router.push("/login");
-  }
+  }, [slug, userId]);
 
   const markProductDelivered = async () => {
     const productDelivered = doc(db, `users/${userId}/CartItems`, slug);
