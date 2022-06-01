@@ -18,9 +18,15 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
-  Card,
-  CardContent,
 } from "@mui/material";
+import OrderTable from "./OrderTable";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 const UserProfile = ({ userData }) => {
   const router = useRouter();
@@ -28,15 +34,7 @@ const UserProfile = ({ userData }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [purchasedItems, setPurchasedItems] = useState([]);
   const [orderData, setOrderData] = useState([]);
-  console.log(
-    "🚀 ~ file: UserProfile.js ~ line 31 ~ UserProfile ~ orderData",
-    orderData,
-  );
   purchasedItems?.reverse();
-  console.log(
-    "🚀 ~ file: UserProfile.js ~ line 18 ~ UserProfile ~ purchasedItems",
-    purchasedItems,
-  );
   const {
     email,
     name,
@@ -51,10 +49,6 @@ const UserProfile = ({ userData }) => {
     const querySnapshot = await getDocs(
       collection(db, `users/${userId}/CartItems`),
       orderBy("timestamp", "desc"),
-    );
-    console.log(
-      "🚀 ~ file: UserProfile.js ~ line 31 ~ fetchUserCartItems ~ querySnapshot",
-      querySnapshot.docs,
     );
     setPurchasedItems(querySnapshot.docs);
   };
@@ -183,7 +177,6 @@ const UserProfile = ({ userData }) => {
       {purchasedItems.length > 0 && (
         <Box
           sx={{
-            width: isMobile ? "80%" : "60%",
             marginLeft: "auto",
             marginRight: "auto",
           }}
@@ -200,48 +193,128 @@ const UserProfile = ({ userData }) => {
           >
             My Orders
           </Typography>
-          {purchasedItems?.map((item) => {
-            console.log(
-              "🚀 ~ file: UserProfile.js ~ line 214 ~ {purchasedItems?.map ~ item",
-              item.data(),
-            );
-            return (
-              <>
-                <Card
-                  key={item.data().razorpay_order_id}
-                  sx={{
-                    backgroundColor: "#e6e6e6",
-                    marginBottom: "10px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() =>
-                    router.push(
-                      `/order/${userId}/${item.data().razorpay_payment_id}`,
-                    )
-                  }
-                >
-                  <CardContent>
-                    <Typography>
-                      Order Id: {item.data().razorpay_order_id}
-                    </Typography>
-                    <Typography>
-                      Total Price: {item.data().totalPrice}
-                    </Typography>
-                    <Typography>
-                      Purchase Date:{" "}
-                      {item.data().createdAt.toDate().toDateString()}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </>
-            );
-          })}
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    sx={{
+                      color: "#310a10",
+                      fontWeight: "bolder",
+                      fontFamily: "Montserrat, sans-serif",
+                    }}
+                  >
+                    Order ID
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#310a10",
+                      fontWeight: "bolder",
+                      fontFamily: "Montserrat, sans-serif",
+                    }}
+                    align="right"
+                  >
+                    Total
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#310a10",
+                      fontWeight: "bolder",
+                      fontFamily: "Montserrat, sans-serif",
+                    }}
+                    align="right"
+                  >
+                    Total Quantity
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#310a10",
+                      fontWeight: "bolder",
+                      fontFamily: "Montserrat, sans-serif",
+                    }}
+                    align="right"
+                  >
+                    Status
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              {purchasedItems?.map((item) => {
+                console.log(
+                  "🚀 ~ file: UserProfile.js ~ line 214 ~ {purchasedItems?.map ~ item",
+                  item.data(),
+                );
+                const {
+                  razorpay_order_id,
+                  totalPrice,
+                  createdAt,
+                  totalQuantities,
+                  razorpay_payment_id,
+                  isDelivered,
+                } = item.data();
+                return (
+                  <TableBody>
+                    <TableRow
+                      key={razorpay_order_id}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                        cursor: "pointer",
+                      }}
+                      onClick={() =>
+                        router.push(`/order/${userId}/${razorpay_payment_id}`)
+                      }
+                    >
+                      <TableCell
+                        sx={{
+                          color: "#310a10",
+                          fontWeight: "bolder",
+                          fontFamily: "Montserrat, sans-serif",
+                        }}
+                        component="th"
+                        scope="row"
+                      >
+                        {razorpay_order_id}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#310a10",
+                          fontWeight: "bolder",
+                          fontFamily: "Montserrat, sans-serif",
+                        }}
+                        align="right"
+                      >
+                        {totalPrice} for {totalQuantities} items
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#310a10",
+                          fontWeight: "bolder",
+                          fontFamily: "Montserrat, sans-serif",
+                        }}
+                        align="right"
+                      >
+                        {createdAt.toDate().toDateString()}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#310a10",
+                          fontWeight: "bolder",
+                          fontFamily: "Montserrat, sans-serif",
+                        }}
+                        align="right"
+                      >
+                        {isDelivered ? "Delivered" : "Processing"}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                );
+              })}
+            </Table>
+          </TableContainer>
         </Box>
       )}
       {orderData.length > 0 && (
         <Box
           sx={{
-            width: isMobile ? "80%" : "60%",
             marginLeft: "auto",
             marginRight: "auto",
           }}
@@ -258,32 +331,121 @@ const UserProfile = ({ userData }) => {
           >
             Orders Details
           </Typography>
-          {orderData.map((item, i) => {
-            return (
-              <>
-                <Card
-                  key={item.userId}
-                  sx={{
-                    backgroundColor: "#e6e6e6",
-                    marginBottom: "10px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() =>
-                    router.push(
-                      `/order/${item.userId}/${item.razorpay_payment_id}`,
-                    )
-                  }
-                >
-                  <CardContent>
-                    <Typography>Order Id: {item.razorpay_order_id}</Typography>
-                    <Typography>
-                      Purchase Date: {item.createdAt.toDate().toDateString()}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </>
-            );
-          })}
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    sx={{
+                      color: "#310a10",
+                      fontWeight: "bolder",
+                      fontFamily: "Montserrat, sans-serif",
+                    }}
+                  >
+                    Order ID
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#310a10",
+                      fontWeight: "bolder",
+                      fontFamily: "Montserrat, sans-serif",
+                    }}
+                    align="right"
+                  >
+                    Total
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#310a10",
+                      fontWeight: "bolder",
+                      fontFamily: "Montserrat, sans-serif",
+                    }}
+                    align="right"
+                  >
+                    Total Quantity
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#310a10",
+                      fontWeight: "bolder",
+                      fontFamily: "Montserrat, sans-serif",
+                    }}
+                    align="right"
+                  >
+                    Status
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              {orderData.map((item, i) => {
+                const {
+                  razorpay_order_id,
+                  totalPrice,
+                  createdAt,
+                  totalQuantities,
+                  razorpay_payment_id,
+                  isDelivered,
+                } = item;
+                return (
+                  <TableBody>
+                    <TableRow
+                      key={razorpay_order_id}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                        cursor: "pointer",
+                      }}
+                      onClick={() =>
+                        router.push(
+                          `/order/${item.userId}/${razorpay_payment_id}`,
+                        )
+                      }
+                    >
+                      <TableCell
+                        sx={{
+                          color: "#310a10",
+                          fontWeight: "bolder",
+                          fontFamily: "Montserrat, sans-serif",
+                        }}
+                        component="th"
+                        scope="row"
+                      >
+                        {razorpay_order_id}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#310a10",
+                          fontWeight: "bolder",
+                          fontFamily: "Montserrat, sans-serif",
+                        }}
+                        align="right"
+                      >
+                        {totalPrice} for {totalQuantities} items
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#310a10",
+                          fontWeight: "bolder",
+                          fontFamily: "Montserrat, sans-serif",
+                        }}
+                        align="right"
+                      >
+                        {createdAt.toDate().toDateString()}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: "#310a10",
+                          fontWeight: "bolder",
+                          fontFamily: "Montserrat, sans-serif",
+                        }}
+                        align="right"
+                      >
+                        {isDelivered ? "Delivered" : "Processing"}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                );
+              })}
+            </Table>
+          </TableContainer>
         </Box>
       )}
     </Box>
