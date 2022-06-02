@@ -76,10 +76,6 @@ const LoginPage = ({ userLogginSuccess, userLogoutSuccess }) => {
         values.email,
         values.password,
       );
-      console.log(
-        "🚀 ~ file: login.js ~ line 48 ~ SubmitToLogin ~ userCridentials",
-        userCridentials,
-      );
       const { uid } = userCridentials.user;
       const docRef = doc(db, "users", uid);
       const userData = await getDoc(docRef);

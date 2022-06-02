@@ -239,10 +239,6 @@ const UserProfile = ({ userData }) => {
                 </TableRow>
               </TableHead>
               {purchasedItems?.map((item) => {
-                console.log(
-                  "🚀 ~ file: UserProfile.js ~ line 214 ~ {purchasedItems?.map ~ item",
-                  item.data(),
-                );
                 const {
                   razorpay_order_id,
                   totalPrice,

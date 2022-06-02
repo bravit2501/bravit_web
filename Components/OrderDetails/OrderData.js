@@ -4,10 +4,6 @@ import { urlFor } from "../../lib/client";
 import React from "react";
 
 const OrderData = ({ orderData, isMobile }) => {
-  console.log(
-    "🚀 ~ file: OrderData.js ~ line 5 ~ OrderData ~ orderData",
-    orderData,
-  );
   const {
     cartItems,
     razorpay_payment_id,

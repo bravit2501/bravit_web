@@ -21,10 +21,6 @@ const ProductDetails = () => {
       } else {
         const ProductQuery = `*[_type == "product" && slug.current == '${slug}'][0]`;
         const products = await client.fetch(ProductQuery);
-        console.log(
-          "🚀 ~ file: [slug].js ~ line 22 ~ fetchProductData ~ products",
-          products,
-        );
         setProductData(products);
         setIsLoading(false);
       }
